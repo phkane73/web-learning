@@ -1,0 +1,632 @@
+html {
+  font-size: 62.5%; //1rem =10px
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: "Poppings", sans-serif;
+  color: $text-color;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+@mixin flex(
+  $align: flex-start,
+  $justify: flex-start,
+  $wrap: nowrap,
+  $dir: row
+) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;
+  flex-direction: $dir;
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+//1440px,1170px
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1210px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.header {
+  padding-top: 4rem;
+  &__inner {
+    @include flex(center, space-between, nowrap);
+  }
+  &__menu {
+    &-list {
+      @include flex(center);
+    }
+    &-item {
+      margin-left: 5rem;
+      &:last-child {
+        //lấy con cuối cùng
+        margin-left: 7rem;
+      }
+    }
+    &-link {
+      font-size: 1.6rem;
+      color: $text-color;
+      transition: color 0.25s linear, border 0.25s linear; //làm mượt hiệu ứng rê chuột
+      &:hover {
+        // rê chuột đổi thành màu..
+        color: #ffc87a;
+      }
+    }
+  }
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $text-color;
+  &__text {
+    color: $primary-color;
+  }
+}
+
+.benner {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
+  max-width: 88rem;
+  margin: 0 auto;
+  text-align: center;
+  &__heading {
+    font-weight: 700;
+    font-size: 7rem;
+    margin-bottom: 3rem;
+  }
+  &__desc {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 4rem;
+  }
+  &__button {
+    display: flex; // dòng 106 107 108 cho 2 cái button cao bằng nhau
+    justify-content: center;
+    align-items: stretch;
+    .btn {
+      margin: 0 1rem;
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+  outline: none;
+  font-size: 1.6rem;
+  text-align: center;
+  color: $text-color;
+  padding: 1.5rem 3rem;
+  display: inline-block;
+  border: 0;
+  background-color: transparent;
+  &--border {
+    border: 1px solid currentColor;
+  }
+  &--rounded {
+    border-radius: 5rem;
+  }
+  &--primary {
+    background-color: $primary-color;
+    &.has-shadow {
+      box-shadow: 0 10px 35px -5px $primary-color;
+    }
+  }
+}
+
+// Section category styles
+
+.category {
+  &__list {
+    @include flex(stretch, space-between, wrap);
+  }
+  &__item {
+    width: calc(25% - 22.5px);
+    padding: 2.5rem;
+    background-color: aliceblue;
+    border-radius: 20px;
+    @include flex(
+      stretch,
+      flex-start,
+      nowrap,
+      column
+    ); //khi nội dung 2 dòng canh đều
+    &:first-child {
+      box-shadow: 0 10px 35px -5px rgba(255, 151, 295, 1);
+    }
+    &:nth-child(2) {
+      box-shadow: 0 10px 35px -5px rgba(255, 151, 295, 1);
+    }
+    &:nth-last-child(2) {
+      box-shadow: 0 10px 35px -5px rgba(255, 151, 295, 1);
+    }
+    &:last-child {
+      box-shadow: 0 10px 35px -5px rgba(255, 151, 295, 1);
+    }
+  }
+  &__image {
+    border-radius: inherit; //inherit là kế thừa từ cha của nó
+    @include size(100%, 23rem);
+    object-fit: cover; //làm cho ảnh fit hơn với vùng chứa nó
+    margin-bottom: 3rem;
+  }
+
+  &__name,
+  &__details {
+    white-space: nowrap; //noi dung hien thi tren mot dòng
+    overflow: hidden; //ẩn phần còn thừa của nội dung khi chuyển về một dòng
+    text-overflow: ellipsis; //them dấu 3 chấm khi nội dung k đủ trong 1 dòng
+  }
+  &__name {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  &__details {
+    font-size: 1.4rem;
+    color: $text-grey;
+    margin-top: auto; //khi dòng 2 k đều
+    i {
+      margin-left: 1.5rem;
+    }
+  }
+}
+
+// Responsive
+
+// Section feature styles
+.feature {
+  padding-top: 18rem;
+  &__item {
+    display: flex;
+    align-items: center;
+    &:nth-child(odd) {
+      .feature__info {
+        padding-left: 10rem;
+      }
+    }
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+      .feature__info {
+        padding-right: 10rem;
+      }
+    }
+  }
+  &__image,
+  &__info {
+    width: 50%;
+  }
+  &__image,
+  &__info {
+    padding-top: 15rem;
+  }
+  &__title {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+  }
+  &__desc {
+    font-weight: 300;
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+    line-height: 2rem;
+  }
+  &-intro {
+    &__item {
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-decoration: underline;
+      font-size: 1.6rem;
+      &--cir {
+        text-decoration: none;
+        position: relative;
+        padding-left: 3rem;
+        &:before {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 0;
+          width: 2rem;
+          height: 2rem;
+          border-radius: 2rem;
+          background-color: aqua;
+          transform: translateY(-50%);
+        }
+        &:nth-child(2):before {
+          background-color: #ffc87a;
+        }
+        &:nth-child(3):before {
+          background-color: red;
+        }
+        &:last-child:before {
+          background-color: green;
+        }
+      }
+    }
+  }
+  &-best {
+    &__icon {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 4px;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: orange;
+      position: relative;
+      z-index: 1;
+      &:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background-color: currentColor;
+        opacity: 0.25;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+      &--blue {
+        color: blue;
+      }
+      &--green {
+        color: green;
+      }
+      &--red {
+        color: red;
+      }
+      &--violet {
+        color: violet;
+      }
+    }
+    &__title {
+      font-size: 18px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    &__desc {
+      font-weight: 300;
+    }
+    &__list {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    &__item {
+      width: calc(50% - 20px);
+      margin-bottom: 5rem;
+    }
+  }
+}
+.partner {
+  &__container {
+    margin-top: 20px;
+    max-width: 83rem;
+    text-align: center;
+    margin-bottom: 10rem;
+  }
+  &__title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 5rem;
+    padding-bottom: 5rem;
+    border-bottom: 2px solid currentColor;
+  }
+  &__list {
+    @include flex(center, space-between);
+    margin-left: -40px;
+  }
+  &__logo {
+    width: 170px;
+    height: 100px;
+    margin-left: 40px;
+  }
+}
+.subscribe {
+  margin-bottom: 5rem;
+  &__container {
+    padding-bottom: 7rem;
+    border-bottom: 3px solid currentColor;
+    @include flex(flex-start, space-between);
+  }
+  &__title,
+  &__info {
+    width: 50%;
+  }
+  &__title {
+    font-size: 2rem;
+    font-weight: bold;
+    max-width: 43rem;
+  }
+  &__form {
+    background-color: #f2f1f6;
+    @include flex(center, space-between);
+    padding: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+  &__input {
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.4rem;
+    font-family: "Poppins";
+    flex-grow: 1; //nội dung search dài ra hết mức có thể
+  }
+  &__button {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-family: "Poppins";
+  }
+  &__social {
+    display: flex;
+  }
+  &__social i {
+    font-size: 3rem;
+  }
+}
+
+.footer {
+  &__container {
+    @include flex(flex-start, space-between);
+  }
+  &__item {
+    width: 25%;
+    margin-left: 20rem;
+  }
+  &__link {
+    color: $text-color;
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+}
+
+//desktop first
+// 1439 1365 1279 1023 767 479 319 max width
+// @media screen and (max-width: 1439px) {
+//   .subscribe {
+//     &__social i {
+//       margin-left: 2rem;
+//     }
+//   }
+// }
+@media screen and(max-width:1023px ) {
+  .benner {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    &__heading {
+      font-size: 4rem;
+    }
+    &__desc {
+      font-size: 1.6rem;
+    }
+    &__button > .btn {
+      font-size: 1.4rem;
+    }
+  }
+  .category {
+    &__item {
+      width: calc(50% - 22.5px);
+      margin-bottom: 1rem;
+    }
+  }
+  .feature {
+    &__title {
+      padding-top: 2rem;
+    }
+    padding-top: 7rem;
+    &__image,
+    &__info {
+      padding-top: 5rem;
+      width: 100%;
+    }
+    &__item {
+      flex-direction: column;
+      &:nth-child(even) {
+        flex-direction: column;
+
+        .feature__info {
+          padding: 0;
+        }
+      }
+      &:nth-child(odd) .feature__info {
+        padding: 0;
+      }
+    }
+  }
+  .footer {
+    &__item {
+      margin-left: 6rem;
+    }
+  }
+}
+
+.subscribe {
+  &__container {
+    flex-direction: column;
+  }
+  &__title,
+  &__info {
+    width: 100%;
+  }
+  &__title {
+    font-size: 1.6rem;
+    margin-bottom: 2.5rem;
+  }
+  &__social {
+    @include flex(center, center, wrap);
+    gap: 10px;
+  }
+  &__item1,
+  &__item2 {
+    @include flex(center, center);
+    gap: 10px;
+  }
+}
+
+// @media screen and (max-width: 767px) {
+//   .header__menu {
+//     display: none;
+//   }
+//   .category {
+//     &__item {
+//       width: 100%;
+//       margin-bottom: 1rem;
+//     }
+//     &__image {
+//       height: 15rem;
+//       margin-bottom: 2rem;
+//     }
+//   }
+//   .partner {
+//     &__title {
+//       font-size: 3rem;
+//       padding-bottom: 2rem;
+//     }
+//     &__list {
+//       display: flex;
+//       flex-wrap: wrap;
+//       justify-content: center;
+//     }
+//     &__item {
+//       width: 50%;
+//     }
+//   }
+//   .feature {
+//     &__title {
+//       font-size: 2.5rem;
+//     }
+//     &-intro {
+//       &__item {
+//         font-size: 1.2rem;
+//       }
+//     }
+//   }
+
+//   .footer {
+//     &__item {
+//       margin-left: 3.5rem;
+//     }
+//     &__link {
+//       font-size: 1rem;
+//       margin-bottom: 1rem;
+//     }
+//   }
+//   .subscribe {
+//     &__social {
+//       @include flex(center, center, wrap);
+//     }
+//     &__item1,
+//     &__item2 {
+//       @include flex(center, center);
+//     }
+//   }
+// }
+
+// test
+@include media-breakpoint-up($md-screen) {
+  .header__menu {
+    display: none;
+  }
+  .category {
+    &__item {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    &__image {
+      height: 15rem;
+      margin-bottom: 2rem;
+    }
+  }
+  .partner {
+    &__title {
+      font-size: 3rem;
+      padding-bottom: 2rem;
+    }
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    &__item {
+      width: 50%;
+    }
+  }
+  .feature {
+    &__title {
+      font-size: 2.5rem;
+    }
+    &-intro {
+      &__item {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .footer {
+    &__item {
+      margin-left: 3.5rem;
+    }
+    &__link {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .subscribe {
+    &__social {
+      @include flex(center, center, wrap);
+    }
+    &__item1,
+    &__item2 {
+      @include flex(center, center);
+    }
+  }
+}
+
+@media screen and(max-width:479px) {
+  .benner {
+    &__heading {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    &__desc {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    &__button > .btn {
+      font-size: 1.2rem;
+    }
+  }
+}
